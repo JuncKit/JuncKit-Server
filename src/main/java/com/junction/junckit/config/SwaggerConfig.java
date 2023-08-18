@@ -20,7 +20,7 @@ public class SwaggerConfig {
   ) {
 
     Info info = new Info()
-      .title("FILMO API")
+      .title("JuncKit API")
       .version(appVersion)
       .license(new License().name("Apache 2.0").url("http://springdoc.org"));
 
