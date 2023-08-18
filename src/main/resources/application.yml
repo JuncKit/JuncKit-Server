@@ -1,0 +1,42 @@
+spring:
+
+  profiles:
+    include: jasypt, jwt, s3
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ENC(5HuA/EmDJVDvlqwcLBtSm4Lt8JJs2SKJN7P4f2DE4LccFvHX56S/J8VcwktTdekgvbr10t/9FKx2ZZrDaYuyu6f+LD/Wi5NOSWmJToVmm2TBucgoRcKfauUeIx6AuSs2)
+    username: ENC(VmX4CGAftElcfMEQtkjSJg==)
+    password: ENC(L04G8l9Po/jreXcLa/jcmGjc/z7abi5v)
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    hibernate:
+      properties:
+        hibernate.format_sql: true
+      ddl-auto: validate
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  port: 8080
+
+springdoc:
+  version: v1.0.0
+  swagger-ui:
+    path: /swagger/junckit.html
+    tagsSorter: alpha
+    operationsSorter: alpha

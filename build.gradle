@@ -1,0 +1,91 @@
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.6.7'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+}
+
+group = 'com.junction'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+// QueryDsl
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+    main.java.srcDir querydslDir
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    querydsl.extendsFrom compileClasspath
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // DB
+    implementation 'mysql:mysql-connector-java'
+
+    // QueryDSL
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+
+    // Jasypt
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
+
+    // Auth & Security
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // JWT
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    // S3
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
+    // Swagger : temp
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
+
+    // Flyway
+//    implementation 'org.flywaydb:flyway-core'
+}
+
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
