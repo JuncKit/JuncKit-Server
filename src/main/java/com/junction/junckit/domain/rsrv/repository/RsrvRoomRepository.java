@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RsrvRoomRepository extends JpaRepository<RsrvRoom, Long> {
+  List<RsrvRoom> findAllByTypeAndStatus(UserType type, RsrvRoomStatus status);
 }
