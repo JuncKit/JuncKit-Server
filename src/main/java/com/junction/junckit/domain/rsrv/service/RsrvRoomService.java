@@ -35,4 +35,18 @@ public class RsrvRoomService {
     return result;
   }
 
+  public RsrvRoom createRoom(PostRoomRequest requestDto) {
+    User user = userRepository.findById(requestDto.getUserId()).orElseThrow();
+    RsrvRoom result = rsrvRoomRepository.save(
+      RsrvRoom
+        .builder()
+        .user(user)
+        .type(user.getType())
+        .status(RsrvRoomStatus.WAIT)
+        .build()
+    );
+
+    return result;
+  }
+
 }
