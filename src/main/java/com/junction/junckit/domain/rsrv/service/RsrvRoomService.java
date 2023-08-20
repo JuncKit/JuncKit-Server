@@ -61,4 +61,14 @@ public class RsrvRoomService {
       .build();
   }
 
+  @Transactional
+  public String deleteRoom(Long id) {
+    RsrvRoom room = rsrvRoomRepository.findById(id)
+      .orElseThrow(() -> new IllegalArgumentException());
+
+    rsrvRoomRepository.delete(room);
+
+    return "Rsrv Deleted";
+  }
+
 }
