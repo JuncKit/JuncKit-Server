@@ -49,4 +49,16 @@ public class RsrvRoomService {
     return result;
   }
 
+  @Transactional
+  public PatchRoomStatusResponse patchRoomStatus(Long id, PatchRoomStatusRequest requestDto) {
+    RsrvRoom room = rsrvRoomRepository.findById(id)
+      .orElseThrow(() -> new IllegalArgumentException());
+    room.updateStatus(RsrvRoomStatus.valueOf(requestDto.getStatus()));
+
+    return PatchRoomStatusResponse
+      .builder()
+      .status(RsrvRoomStatus.valueOf(requestDto.getStatus()))
+      .build();
+  }
+
 }
