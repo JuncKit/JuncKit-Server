@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/navi")
 public class NaviController {
 
-  @GetMapping("/status")
-  public String getNaviStatus(
-    @RequestParam Double x, Double y
-  ) throws InterruptedException {
-    KakaoStatus();
-    Thread.sleep(9000);
-    return "Good";
-  }
+  // @GetMapping("/status")
+  // public String getNaviStatus(
+  //   @RequestParam Double x, Double y
+  // ) throws InterruptedException {
+  //   KakaoStatus();
+  //   Thread.sleep(9000);
+  //   return "Good";
+  // }
 
-  @Scheduled(fixedRate = 3000)
-  public void KakaoStatus() {
-    log.info("PING");
-  }
+  // @Scheduled(fixedRate = 3000)
+  // public void KakaoStatus() {
+  //   log.info("PING");
+  // }
 }
